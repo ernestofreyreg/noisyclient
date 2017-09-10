@@ -1,10 +1,9 @@
 import React from 'react'
-import Link from 'next/link'
 
 const ParisomaCard = ({page}) => (
   <div className='ParisomaCard'>
     <div className='logo'>
-      <Link href={page}><a><img src='/static/parisoma-logo.png'/></a></Link>
+      <a href={page}><img src='/static/parisoma-logo.png'/></a>
     </div>
 
     {/*language=CSS*/}

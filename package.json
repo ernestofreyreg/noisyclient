@@ -4,6 +4,7 @@
   "author": "Ernesto Freyre <ernestofreyreg@gmail.com>",
   "description": "",
   "main": "index.js",
+  "repository": "https://github.com/ernestofreyreg/noisyclient",
   "scripts": {
     "dev": "next",
     "build": "next build",

@@ -6,6 +6,7 @@ const PageHeader = ({title}) => (
     <title>{title}</title>
     <meta charSet='utf-8' />
     <meta name='viewport' content='initial-scale=1.0, width=device-width' />
+    <script src="https://satori-a.akamaihd.net/satori-rtm-sdk/v1.1.1/sdk.min.js"></script>
   </Head>
 )
 

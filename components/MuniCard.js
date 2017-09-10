@@ -1,15 +1,14 @@
 import React from 'react'
-import Link from 'next/link'
 
 const MuniCard = ({route, title, page}) => (
     <div className='MuniCard'>
       <div className='logo'>
-        <Link href={page}><a><img src='/static/muni-logo.png'/></a></Link>
+        <a href={page}><img src='/static/muni-logo.png'/></a>
       </div>
 
       <div className='info'>
-        <div className='route'><Link href={page}><a>{route}</a></Link></div>
-        <div className='title'><Link href={page}><a>{title}</a></Link></div>
+        <div className='route'><a href={page}>{route}</a></div>
+        <div className='title'><a href={page}>{title}</a></div>
       </div>
 
       {/*language=CSS*/}

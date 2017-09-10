@@ -54,21 +54,86 @@ var _MuniCard2 = _interopRequireDefault(_MuniCard);
 
 var _muni = require("../common/muni");
 
+var _BusPrediction = require("../components/BusPrediction");
+
+var _BusPrediction2 = _interopRequireDefault(_BusPrediction);
+
+var _Density = require("../components/Density");
+
+var _Density2 = _interopRequireDefault(_Density);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var initializeRTM = function initializeRTM(id, dispatcher) {
+  var rtm = new RTM('wss://rv6bqxdr.api.satori.com', 'cCab773fCDc1c38CbCDE0d243DAA2FEe');
+  var channel = rtm.subscribe('timed-devices', RTM.SubscriptionMode.SIMPLE, {
+    filter: 'SELECT * FROM `timed-devices` WHERE `id` = "' + id + '" OR `scannerid` = "' + id + '"',
+    history: { count: 1 }
+  });
+
+  channel.on('rtm/subscription/data', function (pdu) {
+    pdu.body.messages.forEach(function (msg) {
+      dispatcher(msg);
+    });
+  });
+
+  rtm.on('data', function (pdu) {
+    if (pdu.action.endsWith('/error')) {
+      rtm.restart();
+    }
+  });
+
+  rtm.start();
+
+  return { rtm: rtm };
+};
 
 var Index = function (_Component) {
   (0, _inherits3.default)(Index, _Component);
 
-  function Index() {
+  function Index(props, context) {
     (0, _classCallCheck3.default)(this, Index);
 
-    return (0, _possibleConstructorReturn3.default)(this, (Index.__proto__ || (0, _getPrototypeOf2.default)(Index)).apply(this, arguments));
+    var _this = (0, _possibleConstructorReturn3.default)(this, (Index.__proto__ || (0, _getPrototypeOf2.default)(Index)).call(this, props, context));
+
+    _this.satoriDispatcher = function (data) {
+      console.log(data);
+
+      if (data.type === 'muni-prediction') {
+        _this.setState({ prediction: data });
+      } else {
+        _this.setState({ count: data });
+      }
+    };
+
+    _this.state = { prediction: null, count: null };
+    return _this;
   }
 
   (0, _createClass3.default)(Index, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var url = this.props.url;
+
+      var query = url.query;
+      var id = query.id;
+
+      console.log('Initializing RTM');
+      var satori = initializeRTM(id, this.satoriDispatcher);
+      this.setState({ satori: satori });
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      this.state.satori.rtm.stop();
+    }
+  }, {
     key: "render",
     value: function render() {
       var url = this.props.url;
+      var _state = this.state,
+          prediction = _state.prediction,
+          count = _state.count;
 
       var query = url.query;
       var id = query.id;
@@ -78,7 +143,7 @@ var Index = function (_Component) {
         route: stop.route,
         title: stop.title,
         page: "/muni?id=" + id
-      })), _react2.default.createElement(_style2.default, {
+      }), prediction && _react2.default.createElement(_BusPrediction2.default, prediction), count && _react2.default.createElement(_Density2.default, count)), _react2.default.createElement(_style2.default, {
         styleId: 3849146088,
         css: "body{font-family:\"Helvetica Neue\",Helvetica,sans-serif}"
       }));

@@ -9,40 +9,12 @@ const isBus = scannerid => {
 }
 
 const rtm = new RTM('wss://rv6bqxdr.api.satori.com', 'cCab773fCDc1c38CbCDE0d243DAA2FEe')
-let globalResponse = 0
-
-const scannerBuckets = {}
-
 
 // create a new subscription with 'your-channel' name
 const channel = rtm.subscribe(
   'timed-devices',
-  RTM.SubscriptionMode.SIMPLE,
-  {
-    filter: 'SELECT * FROM `timed-devices` WHERE `type` = "detect"'
-  }
+  RTM.SubscriptionMode.SIMPLE
 )
-
-// add channel data handlers
-const process = msg => {
-  const { scannerid, address, time } = msg
-  if (!(scannerid in scannerBuckets)) {
-    scannerBuckets[scannerid] = {}
-  }
-
-  scannerBuckets[scannerid][address] = time
-}
-
-
-// channel receives any published message
-channel.on('rtm/subscription/data', function(pdu) {
-  globalResponse += 1
-  pdu.body.messages.forEach(msg => {
-    console.log(`Response: ${globalResponse} - ${JSON.stringify(msg)}`)
-
-    process(msg)
-  })
-})
 
 // client receives any PDU and PDU is passed as a parameter
 rtm.on('data', function(pdu) {
