@@ -12,7 +12,7 @@ const initializeRTM = (id, dispatcher) => {
     'timed-devices',
     RTM.SubscriptionMode.SIMPLE,
     {
-      filter: 'SELECT * FROM `timed-devices` WHERE `scannerid` = "' + id + '"',
+      filter: 'SELECT * FROM `timed-devices` WHERE `type` = "count" AND `scannerid` = "' + id + '"',
       history: { count: 1 }
     }
   )

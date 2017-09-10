@@ -61,7 +61,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var initializeRTM = function initializeRTM(id, dispatcher) {
   var rtm = new RTM('wss://rv6bqxdr.api.satori.com', 'cCab773fCDc1c38CbCDE0d243DAA2FEe');
   var channel = rtm.subscribe('timed-devices', RTM.SubscriptionMode.SIMPLE, {
-    filter: 'SELECT * FROM `timed-devices` WHERE `scannerid` = "' + id + '"',
+    filter: 'SELECT * FROM `timed-devices` WHERE `type` = "count" AND `scannerid` = "' + id + '"',
     history: { count: 1 }
   });
 
