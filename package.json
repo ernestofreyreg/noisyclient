@@ -1,0 +1,27 @@
+{
+  "name": "NoisyBE",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "antd-mobile": "^1.6.6",
+    "babel-plugin-import": "^1.4.0",
+    "moment": "^2.18.1",
+    "next": "^3.2.2",
+    "ramda": "^0.24.1",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "require-hacker": "^3.0.0",
+    "satori-sdk-js": "^1.0.1",
+    "styled-jsx": "^1.0.10",
+    "svg-sprite-loader": "^3.2.5"
+  }
+}
