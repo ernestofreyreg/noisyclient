@@ -10,7 +10,6 @@
     "start": "next start"
   },
   "keywords": [],
-  "author": "",
   "license": "ISC",
   "dependencies": {
     "antd-mobile": "^1.6.6",
