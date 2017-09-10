@@ -1,7 +1,7 @@
 {
   "name": "noisyclient",
   "version": "1.0.0",
-  "author": "Ernesto Freyre <ernestofreyreg@gmail.com>"
+  "author": "Ernesto Freyre <ernestofreyreg@gmail.com>",
   "description": "",
   "main": "index.js",
   "scripts": {
